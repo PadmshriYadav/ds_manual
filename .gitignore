@@ -7,4 +7,4 @@
 # --- EXCEPTION ---
 # Use the '!' prefix to un-ignore your final executable.
 # This tells Git to track "stack.exe" even though "*.exe" is ignored.
-!stack.exe
+# !stack.exe

@@ -1,3 +1,5 @@
+
+//staxk implementation
 #include <stdio.h>
 #include <stdlib.h>
 #define N 5
@@ -38,7 +40,7 @@ void push() {
         else{
         item = stack[top];
         top--;
-         printf(" %d is value at %d position \n", item,stack[top]);
+         printf(" %d is value at \n", item);
         }
      
     }
