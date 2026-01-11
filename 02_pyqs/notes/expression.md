@@ -31,7 +31,7 @@ These are three fundamental ways to write binary mathematical expressions, diffe
 
 ---
 
-## 4. Postfix Notation (Reverse Polish Notation or RPN)
+## 4. Postfix Notation (Reverse Polish Notation or RPN)/Suffix Expression
 
 * **Format:** `<Operand> <Operand> <Operator>` (e.g., A B +)
 * **Key Feature:** Ideal for computer processing, specifically with a **Stack** data structure.
@@ -60,7 +60,7 @@ This algorithm scans the **Infix** expression **left-to-right** and uses an **op
 
 ---
 
-##  Evaluation: Postfix Expression (Reverse Polish Notation - RPN)
+##  Evaluation: Postfix Expression (Reverse Polish Notation - RPN)/Suffix Expression
 
 This algorithm scans the **Postfix** expression **left-to-right** using an **operand stack**.
 
