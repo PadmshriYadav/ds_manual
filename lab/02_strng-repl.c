@@ -6,11 +6,12 @@ STR*/
 
 
 #include <stdio.h>
+#include <string.h>
 // #include<conio.h>
 
-void read(char *s){
-    gets(s);
-}
+// void read(char *s){
+//     gets(s);
+// }
 
 void my_strcpy(char *str1,char *str2){
     int i;
@@ -62,20 +63,23 @@ int main()
     // clrscr();
     
     printf("enter string :");
-    read(str);
+    fgets(str,sizeof(str),stdin);
+    str[strcspn(str,"\n")]='\0';
     
     printf("enter pattern :");
-    read(pat);
+   fgets(pat,sizeof(pat),stdin);
+    pat[strcspn(pat,"\n")]='\0';
     
     printf("enter replace :");
-    read(rep);
+    fgets(rep,sizeof(rep),stdin);
+    rep[strcspn(rep,"\n")]='\0';
     
     flag = matchnrplc(str,pat,rep);
     if(flag==0){
         printf("not a match :");
     }
     else{
-        printf("a match :,%s",str);
+        printf("a match :%s",str);
         
     }
     
