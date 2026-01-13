@@ -6,70 +6,103 @@ struct node {
     char usn[20], name[20], branch[20];
     int sem;
     long long phone;
-    struct node *link;
+    struct node *next;
 };
-typedef struct node *NODE;
 
-NODE head = NULL;
+struct node *head = NULL;
 int count = 0;
 
-NODE create() {
-    NODE snode = (NODE)malloc(sizeof(struct node));
-    if (snode == NULL) { printf("Memory Error"); exit(0); }
+struct node * create() {
+    struct node *newNode = (struct node *)malloc(sizeof(struct node));
+    if (newNode == NULL) {
+        printf("Memory Error");
+        exit(0);
+    }
     printf("Enter USN, Name, Branch, Sem, Phone: ");
-    scanf("%s %s %s %d %lld", snode->usn, snode->name, snode->branch, &snode->sem, &snode->phone);
-    snode->link = NULL;
+    scanf("%s %s %s %d %lld", newNode->usn, newNode->name, newNode->branch, &newNode->sem, &newNode->phone);
+    newNode->next = NULL;
     count++;
-    return snode;
+    return newNode;
 }
 
 void insertFront() {
-    NODE temp = create();
-    if (head == NULL) head = temp;
-    else { temp->link = head; head = temp; }
+    struct node *newNode = create();
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        newNode->next = head;
+        head = newNode;
+    }
 }
 
 void insertEnd() {
-    NODE temp = create(), cur = head;
-    if (head == NULL) { head = temp; return; }
-    while (cur->link != NULL) cur = cur->link;
-    cur->link = temp;
+    struct node *newNode = create();
+    struct node *ptr = head;
+    
+    if (head == NULL) {
+        head = newNode;
+        return;
+    }
+    
+    while (ptr->next != NULL) {
+        ptr = ptr->next;
+    }
+    ptr->next = newNode;
 }
 
 void deleteFront() {
-    NODE temp;
-    if (head == NULL) { printf("List Empty\n"); return; }
-    temp = head;
-    head = head->link;
-    printf("Deleted USN: %s\n", temp->usn);
-    free(temp);
+    struct node *ptr;
+    if (head == NULL) {
+        printf("List Empty\n");
+        return;
+    }
+    
+    ptr = head;
+    head = head->next;
+    printf("Deleted USN: %s\n", ptr->usn);
+    free(ptr);
     count--;
 }
 
 void deleteEnd() {
-    NODE cur = head, prev = NULL;
-    if (head == NULL) { printf("List Empty\n"); return; }
-    if (head->link == NULL) {
+    struct node *ptr = head;
+    struct node *prev = NULL;
+    
+    if (head == NULL) {
+        printf("List Empty\n");
+        return;
+    }
+    
+    if (head->next == NULL) {
         printf("Deleted USN: %s\n", head->usn);
-        free(head); head = NULL;
+        free(head);
+        head = NULL;
     } else {
-        while (cur->link != NULL) { prev = cur; cur = cur->link; }
-        printf("Deleted USN: %s\n", cur->usn);
-        free(cur);
-        prev->link = NULL;
+        while (ptr->next != NULL) {
+            prev = ptr;
+            ptr = ptr->next;
+        }
+        printf("Deleted USN: %s\n", ptr->usn);
+        free(ptr);
+        prev->next = NULL;
     }
     count--;
 }
 
 void display() {
-    NODE cur = head;
+    struct node *ptr = head;
     int i = 1;
-    if (head == NULL) { printf("List Empty\n"); return; }
+    
+    if (head == NULL) {
+        printf("List Empty\n");
+        return;
+    }
+    
     printf("\n--- Student List ---\n");
-    while (cur != NULL) {
+    while (ptr != NULL) {
         printf("%d. USN:%s | Name:%s | Branch:%s | Sem:%d | Ph:%lld\n", 
-               i++, cur->usn, cur->name, cur->branch, cur->sem, cur->phone);
-        cur = cur->link;
+               i++, ptr->usn, ptr->name, ptr->branch, ptr->sem, ptr->phone);
+        ptr = ptr->next;
     }
     printf("Total Nodes: %d\n", count);
 }
@@ -94,8 +127,11 @@ int main() {
         printf("\n1.Create(N) 2.Display 3.InsEnd 4.DelEnd 5.StackDemo 6.Exit\nChoice: ");
         scanf("%d", &ch);
         switch (ch) {
-            case 1: printf("Enter N: "); scanf("%d", &n);
-                    for(i=0; i<n; i++) insertFront(); break;
+            case 1: 
+                printf("Enter N: ");
+                scanf("%d", &n);
+                for(i = 0; i < n; i++) insertFront();
+                break;
             case 2: display(); break;
             case 3: insertEnd(); break;
             case 4: deleteEnd(); break;
@@ -103,4 +139,5 @@ int main() {
             case 6: exit(0);
         }
     }
+    return 0;
 }

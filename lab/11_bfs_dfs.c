@@ -10,8 +10,8 @@ void bfs(int v) {
     while (f < r) {
         cur = q[f++];
         printf("%d ", cur);
-        for (i = 1; i <= n; i++) {
-            if (a[cur][i] && !vis[i]) {
+        for (i = 0; i < n; i++) {
+            if (a[cur][i]==1 && vis[i]!=1) {
                 vis[i] = 1;
                 q[r++] = i;
             }
@@ -24,7 +24,7 @@ void dfs(int v) {
     vis[v] = 1;
     printf("%d ", v);
     for (i = 1; i <= n; i++) {
-        if (a[v][i] && !vis[i])
+        if (a[v][i]==1 && vis[i]!=1)
             dfs(i);
     }
 }
@@ -34,12 +34,12 @@ int main() {
     printf("Enter num vertices: ");
     scanf("%d", &n);
     printf("Enter Adj Matrix:\n");
-    for (i = 1; i <= n; i++)
-        for (j = 1; j <= n; j++)
+    for (i = 0; i < n; i++)
+        for (j = 0; j < n; j++)
             scanf("%d", &a[i][j]);
 
     while(1) {
-        for(i=1; i<=n; i++) vis[i]=0; // Reset visited
+        for(i=0; i<n; i++) vis[i]=0; // Reset visited
         printf("\n1.BFS 2.DFS 3.Exit: ");
         scanf("%d", &ch);
         if(ch==3) exit(0);
